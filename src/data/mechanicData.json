@@ -1,0 +1,31 @@
+[{
+        "id": "1",
+        "name": "Eftykhar",
+        "description": "Highly skilled and dependable with hands-on experience and excellent training to perform service, diagnostics, and repairs on domestic and imported automobiles and trucks.",
+        "image": "https://i.ibb.co/mcpz0y9/1.jpg"
+    },
+    {
+        "id": "2",
+        "name": "Raufu",
+        "description": "Contribute to repeat and referral business through strong problem-solving skills and commitment to top-quality workmanship and excellent customer service.",
+        "image": "https://i.ibb.co/gd3zYJD/2.jpg"
+    },
+    {
+        "id": "3",
+        "name": "Tanvir",
+        "description": "Expertise interpreting technical specifications; provide leadership to other mechanics to increase repair accuracy, minimize lost time, and ensure safety compliance.",
+        "image": "https://i.ibb.co/2YR0b02/3.jpg"
+    },
+    {
+        "id": "4",
+        "name": "Sifat",
+        "description": "Participate in continuous training and professional development activities to maintain current knowledge of rapidly advancing automotive technologies.",
+        "image": "https://i.ibb.co/1r3CzQP/4.jpg"
+    },
+    {
+        "id": "5",
+        "name": "Prezens",
+        "description": "Recognized by management for expertise and routinely called upon for recommendations; provided valuable guidance that led to avoidance of lost time and damaged parts.",
+        "image": "https://i.ibb.co/XXpgTB5/5.jpg"
+    }
+]
