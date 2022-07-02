@@ -1,8 +1,10 @@
 # Raufu Automotive
 
+<p style="text-align:justify">
 There is a car workshop where there are around 5 senior mechanics works. And each mechanic is allowed to get assign on maximum 4 active cars(clients) everyday. So whenever a mechanic is occupied with maximum no. of client’s car the manager assigns the next car to the other mechanic whoever is free. For this reasons clients are not getting their desire mechanics whom they want to investigate their car and sometimes a chaos occurs.
 <br />
 So now the management plans to build an online appointment system where the client can go to the link of the application select their desire mechanic and get the appointment if he is already not occupied without coming to workshop physically.
+</p>
 <br />
 The system should have 2 parts.
 <br />
@@ -33,4 +35,6 @@ The system should have 2 parts.
     </li>
 </ol>
 <br />
+<p style='text-align:justify'>
 The submitted data should be stored in a database which is maintained on a server. The webpage and the server should communicate with each other at every step of the appointment process. The list of the mechanic should show how many free places are available for each mechanic. After a client makes data submission, it should check whether the client has already taken any appointment from any mechanic on certain date or not. If not, then the client is allowed to take an appointment otherwise s/he will be notifying that he has already taken an appointment on that specific date. And also if the mechanic is occupied with maximum no. of appointment the system should notify client otherwise it will approve the appointment.
+</p>
