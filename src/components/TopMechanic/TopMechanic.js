@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import mechanics from '../../data/mechanicData.json';
 // import { addToBookings } from '../../utilities/bookingUtilities';
-import logo from '../../images/logo.svg';
+// import logo from '../../images/logo.svg';
+import Skeleton from '../Skeleton/Skeleton';
 
 const TopMechanic = () => {
 
@@ -57,10 +58,23 @@ const TopMechanic = () => {
                             </div>
                         );
                     }): 
-                    <div style={{ position: 'absolute', height: '100px', width: '100px', top: '50%', left: '50%', marginLeft: '-50px', marginTop: '-50px' }}>
-                        <img src={logo} id='breathing' width={100} height={100} className='img-fluid' alt="logo of Raufu Automotive" />
-                        <p className='text-center'>Loading...</p>
-                      </div>
+                    // <div style={{ position: 'absolute', height: '100px', width: '100px', top: '50%', left: '50%', marginLeft: '-50px', marginTop: '-50px' }}>
+                    //     <img src={logo} id='breathing' width={100} height={100} className='img-fluid' alt="logo of Raufu Automotive" />
+                    //     <p className='text-center'>Loading...</p>
+                    //   </div>
+                    <div className="row mechanics-container">
+                            <div className='cart-deck col-lg-3 col-md-5 col-sm-8 mb-5 mx-1'>
+                                <Skeleton />
+                            </div>
+                            
+                            <div className='cart-deck col-lg-3 col-md-5 col-sm-8 mb-5 mx-1'>
+                                <Skeleton />
+                            </div>
+                            
+                            <div className='cart-deck col-lg-3 col-md-5 col-sm-8 mb-5 mx-1'>
+                                <Skeleton />
+                            </div>
+                        </div>
                 }
             </div>
         </div>
