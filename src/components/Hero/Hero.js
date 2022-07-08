@@ -2,7 +2,7 @@ import React from 'react';
 // import heroImages from '../../data/heroImages.json';
 
 const Hero = () => {
-    
+
 
     return (
         <div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
