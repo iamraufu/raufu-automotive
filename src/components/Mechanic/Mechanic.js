@@ -14,7 +14,7 @@ const Mechanic = () => {
     const [mechanic, setMechanic] = useState({});
 
     useEffect(()=>{
-        fetch(`http://localhost:8000/mechanic/${id}`)
+        fetch(`https://raufuautomotive.herokuapp.com/mechanic/${id}`)
         .then(res => res.json())
         .then(data => setMechanic(data))
     }

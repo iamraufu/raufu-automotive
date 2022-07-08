@@ -12,7 +12,7 @@ const Dashboard = () => {
 
     // get mechanics from database
     useEffect(()=>{
-        fetch('http://localhost:8000/mechanics')
+        fetch('https://raufuautomotive.herokuapp.com/mechanics')
         .then(res => res.json())
         .then(data => setMechanics(data))
     })
@@ -23,7 +23,7 @@ const Dashboard = () => {
     // add mechanic to database
     const addMechanic = (data) => {
         const mechanicDetails = data;
-        fetch('http://localhost:8000/mechanic',{
+        fetch('https://raufuautomotive.herokuapp.com/mechanic',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ const Dashboard = () => {
 
     // remove mechanic from database
     const removeMechanic = (id) => {
-        fetch(`http://localhost:8000/mechanic/${id}`,{
+        fetch(`https://raufuautomotive.herokuapp.com/mechanic/${id}`,{
             method: 'DELETE'
         })
         .then(res => res.json())

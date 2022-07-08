@@ -25,7 +25,7 @@ const Mechanics = () => {
 
     // get all mechanics
     useEffect(() => {
-        fetch('http://localhost:8000/mechanics')
+        fetch('https://raufuautomotive.herokuapp.com/mechanics')
             .then(res => res.json())
             .then(data => setMechanics(data))
     }, []);

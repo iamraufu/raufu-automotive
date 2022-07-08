@@ -9,7 +9,7 @@ const Profile = () => {
     const [user, setUser] = useState([]);
 
     useEffect(()=>{
-        fetch('http://localhost:8000/users')
+        fetch('https://raufuautomotive.herokuapp.com/users')
         .then(res => res.json())
         .then(data => setUser(data))
     })
