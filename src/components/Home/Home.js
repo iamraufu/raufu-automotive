@@ -8,11 +8,11 @@ const Home = () => {
         <section className='bg-brand bg-brand-container'>
             <Navbar />
 
-            <div style={{maxHeight:'400px'}} className="container hero-container my-5">
+            <div data-aos="fade-up" style={{maxHeight:'400px'}} className="container hero-container my-5">
                 <Hero />
             </div>
 
-            <div className="container">
+            <div data-aos="fade-up" className="container">
                 <TopMechanic />
             </div>
             
