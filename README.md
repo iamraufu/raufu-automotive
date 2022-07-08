@@ -34,3 +34,7 @@ The system should have 2 parts.
 </ol>
 <br />
 The submitted data should be stored in a database which is maintained on a server. The webpage and the server should communicate with each other at every step of the appointment process. The list of the mechanic should show how many free places are available for each mechanic. After a client makes data submission, it should check whether the client has already taken any appointment from any mechanic on certain date or not. If not, then the client is allowed to take an appointment otherwise s/he will be notifying that he has already taken an appointment on that specific date. And also if the mechanic is occupied with maximum no. of appointment the system should notify client otherwise it will approve the appointment.
+
+## Netlify Build Status 
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1f2cd254-5a29-4d80-b3bf-2ee915aaaff4/deploy-status)](https://app.netlify.com/sites/raufuautomotive/deploys)
