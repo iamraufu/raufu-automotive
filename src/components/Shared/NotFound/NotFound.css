@@ -1,0 +1,6 @@
+.not-found-container {
+    background-image: url('../../../images/404/404.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
