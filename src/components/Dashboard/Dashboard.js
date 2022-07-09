@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../Shared/Navbar/Navbar';
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
 
@@ -15,7 +15,26 @@ const Dashboard = () => {
         fetch('https://raufuautomotive.herokuapp.com/mechanics')
             .then(res => res.json())
             .then(data => setMechanics(data))
-    })
+    },[])
+
+    // get users from database
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        fetch('https://raufuautomotive.herokuapp.com/users')
+            .then(res => res.json())
+            .then(data => setUsers(data.users))
+    }, [])
+
+    // get bookings from database
+    const [bookings, setBookings] = useState([]);
+    useEffect(()=>{
+        fetch('https://raufuautomotive.herokuapp.com/orders')
+            .then(res => res.json())
+            .then(data => {
+                setBookings(data.orders);
+            }
+            )
+    },[])
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => addMechanic(data);
@@ -58,14 +77,7 @@ const Dashboard = () => {
             })
     }
 
-    // get users from database
-    const [users, setUsers] = useState([]);
-    useEffect(() => {
-        fetch('https://raufuautomotive.herokuapp.com/users')
-            .then(res => res.json())
-            .then(data => setUsers(data.users))
-    }
-        , [])
+    
 
     return (
         <div>
@@ -138,6 +150,56 @@ const Dashboard = () => {
                 </div>
 
                 <div className='row'>
+                <div className="col-md-12">
+                    <h2 className='mt-5 fs-5'>Appointments List</h2>
+                        {
+                        bookings?.length > 0 ?
+                            <div className="table-responsive pb-5">
+                                <table style={{ border: '1px solid lightgrey' }} className="table table-primary table-striped table-hover">
+                                    <thead style={{ backgroundColor: '#E9EEF4' }}>
+                                        <tr className='text-center'>
+                                            <th>Id</th>
+                                            <th>Client Name</th>
+                                            <th>Date</th>
+                                            <th>Mechanic Name</th>
+                                            <th>Car Engine</th>
+                                            <th>Car License</th>
+                                            <th>Client Phone</th>
+                                            <th>Client Address</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            bookings.map((booking, index) => (
+                                                <tr key={index + 1} className='text-center'>
+                                                    <td>{booking?._id}</td>
+                                                    <td>{booking?.data?.name}</td>
+                                                    <td>{booking?.data?.date}</td>
+                                                    <td>{booking?.mechanicName}</td>
+                                                    <td>{booking?.data?.car_engine}</td>
+                                                    <td>{booking?.data?.car_license}</td>
+                                                    <td>{booking?.data?.phone}</td>
+                                                    <td>{booking?.data?.address}</td>
+                                                    <td><button onClick className='btn btn-sm btn-outline-dark'>Edit</button></td>
+                                                    {/* <td><button onClick={() => removeFromDb(bookings.id)} className='btn btn-danger'>Remove</button></td> */}
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            :
+                            <p style={{ maxWidth: '500px', backgroundColor: '#E9EEF4' }} className='p-2 text-primary'>You Currently have No Bookings
+                            <Link to='/mechanics' className='text-decoration-none'><span className='text-black'> Go Back</span></Link>
+                            </p>
+                    }
+
+                    <h3 className='fs-5 text-center'>Edit Appointments</h3>
+                    
+
+                    </div>
+
                     <div className="col-md-12">
                         <h2 className='mt-5 fs-5'>Users List</h2>
                         {
@@ -182,51 +244,7 @@ const Dashboard = () => {
                         }
                     </div>
 
-                    <div className="col-md-12">
-                        <h2 className='mt-5 fs-5'>Appointments List</h2>
-                        {
-                            users?.length ? <div className="table-responsive my-3">
-                                <table className='table table-primary table-striped text-center table-hover'>
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Appointment Date</th>
-                                            <th>Client's Name</th>
-                                            <th>Mechanic Name</th>
-                                            <th>Email</th>
-                                            <th>Address</th>
-                                            <th>Phone</th>
-                                            <th>Car License</th>
-                                            <th>Car Engine</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {users.map((user, index) => {
-                                            return (
-                                                <tr key={user._id}>
-                                                    <td>{index + 1}</td>
-                                                    <td>{user.appointment_date}</td>
-                                                    <td>{user.name}</td>
-                                                    <td>{user.mechanic_name}</td>
-                                                    <td>{user.email}</td>
-                                                    <td>{user.address}</td>
-                                                    <td>{user.phone}</td>
-                                                    <td>{user.car_license}</td>
-                                                    <td>{user.car_engine}</td>
-                                                    {/* <td>
-                                                        <div className="d-flex">
-                                                            <button onClick={() => navigate(`/mechanic/${user._id}`)} className='btn btn-sm btn-secondary mx-2'>View</button>
-                                                            <button onClick={() => removeMechanic(user._id)} className='btn btn-sm btn-danger'>Remove</button>
-                                                        </div>
-                                                    </td> */}
-                                                </tr>
-                                            );
-                                        })}
-                                    </tbody>
-                                </table>
-                            </div> : <p className='text-danger fw-bold text-center fs-4'>No Appointments Found!</p>
-                        }
-                    </div>
+                    
                 </div>
             </div>
         </div>
