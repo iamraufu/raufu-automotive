@@ -11,11 +11,8 @@ const Login = () => {
     let location = useLocation();
     let from = location.state?.from?.pathname ||  "/mechanics" ;
     const { auth, signInWithEmailAndPassword, user, setUser, error } = useAuth();
-    
-    // useEffect(()=>{
-        user.email && navigate(from , { replace:true })
-        // eslint-disable-next-line
-    // },[])
+
+    user.email && navigate(from , { replace:true })
 
     const [loginError, setLoginError] = useState('');
 
@@ -35,7 +32,7 @@ const Login = () => {
                 // localStorage.setItem('refreshToken', result.user.stsTokenManager.refreshToken);
                 // localStorage.setItem('accessToken', result.user.stsTokenManager.accessToken);
                 // console.log(result.user.stsTokenManager.accessToken)
-                (result.user.email === 'eftykharrahman@gmail.com') ? navigate('/dashboard') : navigate(from, { replace: true })
+                // (result.user.email === 'eftykharrahman@gmail.com') ? navigate('/dashboard') : navigate(from, { replace: true })
                 setLoginError('');
             })
             .catch(error => {
