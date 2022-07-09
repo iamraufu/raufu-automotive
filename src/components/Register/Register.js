@@ -8,8 +8,8 @@ import Swal from 'sweetalert2';
 const Register = () => {
 
     const { auth, createUserWithEmailAndPassword, user, 
-        sendEmailVerification, 
-        updateProfile
+        // sendEmailVerification, 
+        // updateProfile
     } = useAuth();
     let navigate = useNavigate();
     let location = useLocation();
@@ -33,17 +33,16 @@ const Register = () => {
     const registerNewUser = (name, image, email, password) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(result => {
-                // const user = result.user;
+                registerUser(name, image, email, password);
                 setRegisterError('');
-                result.user && Swal.fire({
-                    icon: 'success',
-                    // title: `Welcome ${user.displayName}!`,
-                    title: `Welcome to Raufu Automotive!`,
-                    text: 'You are now registered!'
-                })
+                // result.user && Swal.fire({
+                //     icon: 'success',
+                //     title: `Welcome to Raufu Automotive!`,
+                //     text: 'You are now registered!'
+                // })
                 localStorage.setItem('refreshToken', result.user.stsTokenManager.refreshToken);
-                verifyEmail();
-                setUserName(name, image);
+                // verifyEmail();
+                // setUserNameImage(name, image);
             })
             .catch((error) => {
                 console.log(error.message)
@@ -66,27 +65,41 @@ const Register = () => {
             });
     }
 
-    const verifyEmail = () => {
-        console.log(auth.currentUser)
-        sendEmailVerification(auth.currentUser)
-            .then(result => {
-                console.log(result);
-            })
-            .catch(error => {
-                console.log(error.message)
-            }
-            );
-    }
+    // const verifyEmail = () => {
+    //     console.log(auth.currentUser)
+    //     sendEmailVerification(auth.currentUser)
+    //         .then(result => {
+    //             Swal.fire({
+    //                 icon: 'success',
+    //                 title: 'Email verification sent',
+    //                 text: 'Please check your email to verify your account.'
+    //             })
+    //             console.log(result);
+    //         })
+    //         .catch(error => {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Email verification failed',
+    //                 text: 'Please try again later.'
+    //             })
+    //             console.log(error.message)
+    //         }
+    //         );
+    // }
 
-    const setUserName = (name, image) => {
-        updateProfile(auth.currentUser, {
-            displayName: name,
-            photoURL: image
-        }).then(() => {
-        }).catch((error) => {
-            console.log(error.message)
-        });
-    }
+    // const setUserNameImage = (name, image) => {
+    //     updateProfile(auth.currentUser, {
+    //         displayName: name,
+    //         photoURL: image
+    //     }).then(() => {
+    //     }).catch((error) => {
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: 'Profile update failed',
+    //             text: `${error.message}`
+    //         })
+    //     });
+    // }
 
     // const handleImageUpload = () => {
     //     let base64String = "";
@@ -112,6 +125,31 @@ const Register = () => {
     //         alert(base64String);
     //     }
     // }
+
+    // register User
+    const registerUser = (name, image, email, password) => {
+        
+        const userDetails = {
+            name, image, email, password, address:'', phone:'', car_license:'', car_engine:'', userCreatedAt: new Date()
+        }
+        
+        fetch('https://raufuautomotive.herokuapp.com/register',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userDetails)
+        })
+        .then(res => res.json())
+        .then(data => {
+            data.status === true &&
+            Swal.fire({
+                icon: 'success',
+                title: 'Registration successful',
+                text: `Welcome ${name} to Raufu Automotive!`
+            })
+        })
+    }
 
     return (
         <section className='bg-brand bg-brand-container'>
