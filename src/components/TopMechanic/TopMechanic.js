@@ -25,7 +25,7 @@ const TopMechanic = () => {
         <div>
             <h1 style={{ fontSize: '22px', color: '#212529', fontWeight: '700' }} className='mt-5'>Top Mechanics of This Week</h1>
 
-            <div className="row mechanics-container justify-content-center align-items-center mt-5">
+            <div className="row mechanics-container justify-content-center align-items-center">
                 {
                     topMechanics?.length ? 
                     topMechanics.map(mechanic => {
@@ -62,7 +62,7 @@ const TopMechanic = () => {
                     //     <img src={logo} id='breathing' width={100} height={100} className='img-fluid' alt="logo of Raufu Automotive" />
                     //     <p className='text-center'>Loading...</p>
                     //   </div>
-                    <div className="row mechanics-container">
+                    <div className="row mechanics-container justify-content-center align-items-center">
                             <div className='cart-deck col-lg-3 col-md-5 col-sm-8 mb-5 mx-1'>
                                 <Skeleton />
                             </div>
