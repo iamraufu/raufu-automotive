@@ -1,28 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 // import Swal from 'sweetalert2';
 import Navbar from '../Shared/Navbar/Navbar';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { addToBookings } from '../../utilities/bookingUtilities';
+import {
+    useNavigate
+    , useLocation
+} from 'react-router-dom';
+// import { addToBookings } from '../../utilities/bookingUtilities';
+import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const ClientInfo = () => {
 
+    const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        localStorage.setItem('clientInfo', JSON.stringify(data));
-        addToBookings(location.state.mechanic);
-        // Swal.fire({
-        //     icon: 'success',
-        //     title: 'Booking Confirmed!',
-        //     text: `Dear ${data.name}, Your Booking for ${data.appointment_date} has been confirmed!`,
-        // });
-        navigate('/bookings');
-    }
+    !location.state && navigate('/mechanics')
 
-    // const clientInfo = localStorage.getItem('clientInfo') ? JSON.parse(localStorage.getItem('clientInfo')) : {};
+    const mechanicName = location.state?.mechanic.name;
+    const mechanicId = location.state?.mechanic._id;
+
+    const [userInfo, setUserInfo] = useState({});
+
+    useEffect(() => {
+        fetch(`https://raufuautomotive.herokuapp.com/user/${user.email}`)
+            .then(res => res.json())
+            .then(data => {
+                setUserInfo(data.user);
+            })
+    }, [user.email])
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => { bookAppointment(data); }
+
+    // booking to database
+    const bookAppointment = (data) => {
+        const bookingDetails = {
+            data,
+            mechanicId: mechanicId,
+            mechanicName: mechanicName
+        };
+        console.log(data)
+        fetch('https://raufuautomotive.herokuapp.com/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookingDetails)
+        })
+            .then(res => res.json())
+            .then(data => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Booking Confirmed!',
+                    text: `Your Booking for ${mechanicName} has been confirmed!`,
+                })
+            })
+        navigate('/bookings')
+    }
 
     return (
         <div className='bg-brand bg-brand-container'>
@@ -30,61 +66,77 @@ const ClientInfo = () => {
             <div className="container mt-5">
                 <h1 className='fs-4 text-center'>Client Details</h1>
 
-                <div className="col-md-6 col-sm-8 mx-auto d-block">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-group mt-2">
-                            <label htmlFor="name" className='p-1'>Your Name</label>
-                            <input type="text" className="form-control p-2" 
-                            // value={clientInfo.name}
-                            {...register("name", { required: true })} />
-                            {errors.name && <span className='text-danger'>This Field is required</span>}
-                        </div>
+                {
+                    userInfo?.email ? <div className="col-md-6 col-sm-8 mx-auto d-block pb-5">
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="form-group mt-2">
+                                <label htmlFor="name" className='p-1'>Your Name</label>
+                                <input type="text" defaultValue={userInfo?.name} className="form-control p-2"
+                                    {...register("name", { required: true })} />
+                                {errors.name && <span className='text-danger'>This Field is required</span>}
+                            </div>
 
-                        <div className="form-group mt-2">
-                            <label htmlFor="address" className='p-1'>Your Present Address</label>
-                            <input type="text" className="form-control p-2" 
-                            // value={clientInfo.address}
-                            {...register("address", { required: true })} />
-                            {errors.address && <span className='text-danger'>This Field is required</span>}
-                        </div>
+                            <div className="form-group mt-2">
+                                <label htmlFor="address" className='p-1'>Your Present Address</label>
+                                <input type="text" defaultValue={userInfo?.address} className="form-control p-2"
+                                    {...register("address", { required: true })} />
+                                {errors.address && <span className='text-danger'>This Field is required</span>}
+                            </div>
 
-                        <div className="form-group mt-2">
-                            <label htmlFor="phone" className='p-1'>Your Phone Number</label>
-                            <input type="number" className="form-control p-2" 
-                            // value={clientInfo.phone}
-                            {...register("phone", { required: true })} />
-                            {errors.phone && <span className='text-danger'>This Field is required</span>}
-                        </div>
+                            <div className="form-group mt-2">
+                                <label htmlFor="phone" className='p-1'>Your Phone Number</label>
+                                <input type="number" defaultValue={userInfo?.phone} className="form-control p-2"
+                                    {...register("phone", { required: true })} />
+                                {errors.phone && <span className='text-danger'>This Field is required</span>}
+                            </div>
 
-                        <div className="form-group mt-2">
-                            <label htmlFor="car_license_number" className='p-1'>Car License Number</label>
-                            <input type="text" className="form-control p-2" 
-                            // value={clientInfo.car_license_number}
-                            {...register("car_license_number", { required: true })} />
-                            {errors.car_license_number && <span className='text-danger'>This Field is required</span>}
-                        </div>
-                        
-                        <div className="form-group mt-2">
-                            <label htmlFor="car_engine_number" className='p-1'>Car Engine Number</label>
-                            <input type="text" className="form-control p-2" 
-                            // value={clientInfo.car_engine_number}
-                            {...register("car_engine_number", { required: true })} />
-                            {errors.car_engine_number && <span className='text-danger'>This Field is required</span>}
-                        </div>
+                            <div className="form-group mt-2">
+                                <label htmlFor="car_license" className='p-1'>Car License Number</label>
+                                <input type="text" defaultValue={userInfo?.car_license} className="form-control p-2"
+                                    {...register("car_license", { required: true })} />
+                                {errors.car_license && <span className='text-danger'>This Field is required</span>}
+                            </div>
 
-                        <div className="form-group mt-2">
-                            <label htmlFor="appointment_date" className='p-1'>Appointment Date</label>
-                            <input type="date" className="form-control p-2" 
-                            // value={clientInfo.appointment_date}
-                            {...register("appointment_date", { required: true })} />
-                            {errors.appointment_date && <span className='text-danger'>This Field is required</span>}
+                            <div className="form-group mt-2">
+                                <label htmlFor="car_engine" className='p-1'>Car Engine Number</label>
+                                <input type="text" defaultValue={userInfo?.car_engine} className="form-control p-2"
+                                    {...register("car_engine", { required: true })} />
+                                {errors.car_engine && <span className='text-danger'>This Field is required</span>}
+                            </div>
+
+                            <div className="form-group mt-2">
+                                <label htmlFor="date" className='p-1'>Appointment Date</label>
+                                <input type="date" defaultValue={userInfo?.date} className="form-control p-2"
+                                    {...register("date", { required: true })} />
+                                {errors.date && <span className='text-danger'>This Field is required</span>}
+                            </div>
+
+                            <p><small className="form-text text-muted">We'll never share your information with anyone else.</small></p>
+                            <input className='btn btn-dark p-2 mt-2' type="submit" value='Book Now' />
+                        </form>
+
+                    </div> :
+                        <div>
+                            <div className='skeleton col-md-6 col-sm-8 mx-auto d-block pb-5'>
+                                <div className="mt-4"></div>
+                            </div>
+                            <div className='skeleton col-md-6 col-sm-8 mx-auto d-block pb-5'>
+                                <div className="mt-4"></div>
+                            </div>
+                            <div className='skeleton col-md-6 col-sm-8 mx-auto d-block pb-5'>
+                                <div className="mt-4"></div>
+                            </div>
+                            <div className='skeleton col-md-6 col-sm-8 mx-auto d-block pb-5'>
+                                <div className="mt-4"></div>
+                            </div>
+                            <div className='skeleton col-md-6 col-sm-8 mx-auto d-block pb-5'>
+                                <div className="mt-4"></div>
+                            </div>
+                            <div className='skeleton col-md-6 col-sm-8 mx-auto d-block pb-5'>
+                                <div className="mt-4"></div>
+                            </div>
                         </div>
-
-                        <p><small className="form-text text-muted">We'll never share your information with anyone else.</small></p>
-                        <input className='btn btn-dark p-2 mt-2' type="submit" value='Book Now' />
-                    </form>
-
-                </div>
+                }
             </div>
         </div>
     );
