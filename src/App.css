@@ -7,6 +7,11 @@
     background-color: #f3f5f9;
 }
 
+.colored {
+    background-color: #090a27;
+    color: #fff;
+}
+
 .bg-brand-container {
     min-height: 100vh;
 }
