@@ -32,8 +32,7 @@ const Mechanics = () => {
     }, []);
 
     const handleBooking = (mechanic) => {
-        // navigate('/clientInfo', { state: { mechanic } });
-        console.log(mechanic);
+        navigate('/clientInfo', { state: { mechanic } });
     }
 
     return (
@@ -46,7 +45,7 @@ const Mechanics = () => {
                         mechanics?.length ? 
                         mechanics.map(mechanic => {
                             return (
-                                <div className="cart-deck mb-5 col-lg-3 col-md-5 col-sm-8 mx-1" key={mechanic.id}>
+                                <div className="cart-deck mb-5 col-lg-3 col-md-5 col-sm-8 mx-1" key={mechanic._id}>
 
                                     <div className="cart">
                                         <Link to={`/mechanic/${mechanic._id}`} onClick={() => { window.scrollTo(0, 0); }} className='text-decoration-none text-black'>
