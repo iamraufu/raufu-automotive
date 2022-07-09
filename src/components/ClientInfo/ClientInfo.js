@@ -15,7 +15,7 @@ const ClientInfo = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-
+    
     !location.state && navigate('/mechanics')
 
     const mechanicName = location.state?.mechanic.name;
@@ -32,7 +32,23 @@ const ClientInfo = () => {
     }, [user.email])
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => { bookAppointment(data); }
+    const onSubmit = data => { 
+        // const { name, phone, address, car_engine, car_license } = data;
+        userInfoUpdate(data);
+        bookAppointment(data); 
+    }
+
+    // update userIno 
+    const userInfoUpdate =(data) =>{
+        fetch(`https://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+    }
 
     // booking to database
     const bookAppointment = (data) => {
