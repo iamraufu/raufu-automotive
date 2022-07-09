@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../Shared/Navbar/Navbar';
 // import { getStoredBookings, removeFromDb } from '../../utilities/bookingUtilities';
 // import { Link } from 'react-router-dom';
@@ -68,7 +69,7 @@ const Bookings = () => {
                             </div>
                             :
                             <p style={{ maxWidth: '500px', backgroundColor: '#E9EEF4' }} className='p-2 text-primary'>You Currently have No Bookings
-                            {/* <Link to='/mechanics' className='text-decoration-none'><span className='text-black'> Go Back</span></Link> */}
+                            <Link to='/mechanics' className='text-decoration-none'><span className='text-black'> Go Back</span></Link>
                             </p>
                     }
                 </div>
