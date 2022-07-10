@@ -63,9 +63,7 @@ const Mechanics = () => {
                                                 }} className="col-sm-6 my-3">
                                                     <button className="btn btn-outline-dark">Details</button>
                                                 </div>
-                                                <div onClick={() => handleBooking(mechanic)
-                                                    // addToBookings(mechanic.id)
-                                                } className="col-sm-6 my-3 mx-3">
+                                                <div onClick={() => handleBooking(mechanic)} className="col-sm-6 my-3 mx-3">
                                                     <button className="btn btn-outline-secondary">Book</button>
                                                 </div>
                                             </div>
