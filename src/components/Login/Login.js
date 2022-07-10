@@ -9,7 +9,7 @@ const Login = () => {
 
     let navigate = useNavigate();
     let location = useLocation();
-    let from = location.state?.from?.pathname ||  "/mechanics" ;
+    let from = location.state?.from?.pathname ||  "" ;
     const { auth, signInWithEmailAndPassword, user, setUser, error } = useAuth();
 
     user.email && navigate(from , { replace:true })
@@ -23,10 +23,10 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(result => {
                 setUser(result.user);
-                console.log(result.user)
                 result && Swal.fire({
                     icon: 'success',
-                    title: `Welcome ${result.user.displayName}!`,
+                    // title: `Welcome ${result.user.displayName}!`,
+                    title: `Welcome to Raufu Automotive!`,
                     text: 'You are now logged in!'
                 })
                 // localStorage.setItem('refreshToken', result.user.stsTokenManager.refreshToken);
