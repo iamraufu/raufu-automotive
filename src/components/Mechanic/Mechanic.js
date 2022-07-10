@@ -20,6 +20,10 @@ const Mechanic = () => {
             .then(data => setMechanic(data))
     },[id])
 
+    const handleBooking = (mechanic) => {
+        navigate('/clientInfo', { state: { mechanic } });
+    }
+
     return (
         <div className='bg-brand bg-brand-container'>
             <Navbar />
@@ -32,9 +36,7 @@ const Mechanic = () => {
                         <div className="col-lg-4">
                             <img src={mechanic.image} style={{ borderRadius: '1rem', boxShadow: '0 5px 15px #c4c4c44d' }} className='img-fluid mx-auto d-block mb-3 mechanic-image' width={250} alt={mechanic.image} />
                             <div className="d-flex justify-content-center align-items-center">
-                                <button 
-                                // onClick={() => addToBookings(mechanic._id)}
-                                    className='btn btn-dark mt-2 fw-bold'>Book Now</button>
+                                <button onClick={() => handleBooking(mechanic)} className='btn btn-dark mt-2 fw-bold'>Book Now</button>
                             </div>
                         </div>
 
