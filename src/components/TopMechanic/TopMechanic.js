@@ -21,6 +21,10 @@ const TopMechanic = () => {
     // randomly select 3 mechanics from the mechanics array
     useEffect(()=>setTopMechanics(mechanics.sort(() => Math.random() - 0.5).slice(0, 3)),[mechanics])
 
+    const handleBooking = (mechanic) => {
+        navigate('/clientInfo', { state: { mechanic } });
+    }
+
     return (
         <div>
             <h1 style={{ fontSize: '22px', color: '#212529', fontWeight: '700' }} className='mt-5'>Top Mechanics of This Week</h1>
@@ -48,9 +52,7 @@ const TopMechanic = () => {
                                                 <button className="btn btn-outline-dark">Details</button>
                                             </div>
                                             <div className="col-sm-6 my-3 mx-3">
-                                                <button 
-                                                // onClick={() => addToBookings(mechanic._id)}
-                                                    className="btn btn-outline-secondary">Book</button>
+                                                <button onClick={() => handleBooking(mechanic)} className="btn btn-outline-secondary">Book</button>
                                             </div>
                                         </div>
                                     </div>
