@@ -85,10 +85,7 @@ const Profile = () => {
             <Navbar />
             <div className="container">
                 <h1 className='mt-5 fs-4 text-center'>Profile</h1>
-                {/* <button className='btn btn-sm btn-danger' onClick={logOut}>Log out</button> */}
-                {/* {
-                    user?.email ? <p>{user.name}</p> : <p>locading...</p>
-                } */}
+                
                 <div className="pb-5">
                         <div style={{ backgroundColor: 'white', boxShadow: '0 5px 15px #c4c4c44d', maxWidth: '500px', height:'350px', borderRadius: '15px' }} className="mt-3 p-4 mx-auto">
 
