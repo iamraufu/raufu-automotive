@@ -15,7 +15,7 @@ const Profile = () => {
     const [userInfo, setUserInfo] = useState([]);
 
     useEffect(()=>{
-        fetch(`http://raufuautomotive.herokuapp.com/user/${user.email}`)
+        fetch(`https://raufuautomotive.herokuapp.com/user/${user.email}`)
         .then(res => res.json())
         .then(data => {
             setUserInfo(data.user)})
@@ -23,7 +23,7 @@ const Profile = () => {
 
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
-        fetch(`http://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
+        fetch(`https://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

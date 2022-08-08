@@ -26,13 +26,13 @@ const Mechanic = () => {
     }
 
     useEffect(() => {
-        fetch(`http://raufuautomotive.herokuapp.com/mechanic/${id}`)
+        fetch(`https://raufuautomotive.herokuapp.com/mechanic/${id}`)
             .then(res => res.json())
             .then(data => setMechanic(data))
     }, [id])
 
     useEffect(() => {
-        fetch(`http://raufuautomotive.herokuapp.com/orders/${mechanic._id}`)
+        fetch(`https://raufuautomotive.herokuapp.com/orders/${mechanic._id}`)
             .then(res => res.json())
             .then(data => setAllBookings(data.orders))
     }, [mechanic._id])

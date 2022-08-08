@@ -18,7 +18,7 @@ const Bookings = () => {
 
     const [bookings, setBookings] = useState([]);
     useEffect(()=>{
-        fetch(`http://raufuautomotive.herokuapp.com/orders`)
+        fetch(`https://raufuautomotive.herokuapp.com/orders`)
             .then(res => res.json())
             .then(data => {
                 setBookings(data.orders);
