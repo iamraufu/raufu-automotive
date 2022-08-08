@@ -15,7 +15,7 @@ const Profile = () => {
     const [userInfo, setUserInfo] = useState([]);
 
     useEffect(()=>{
-        fetch(`https://raufuautomotive.herokuapp.com/user/${user.email}`)
+        fetch(`http://raufuautomotive.herokuapp.com/user/${user.email}`)
         .then(res => res.json())
         .then(data => {
             setUserInfo(data.user)})
@@ -23,7 +23,7 @@ const Profile = () => {
 
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
-        fetch(`https://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
+        fetch(`http://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -147,7 +147,7 @@ const Profile = () => {
 
                                     <div className="form-group mt-2">
                                         <label htmlFor="phone" className='p-1'>Phone</label>
-                                        <input type="phone" defaultValue={userInfo?.phone} className="form-control p-2" {...register("phone")} />
+                                        <input type="phone" defaultValue={userInfo?.phone} className="form-control p-2" disabled {...register("phone")} />
                                     </div>
 
                                     <div className="form-group mt-2">
