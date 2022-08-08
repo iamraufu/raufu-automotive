@@ -45,7 +45,6 @@ const Register = () => {
                 // setUserNameImage(name, image);
             })
             .catch((error) => {
-                console.log(error.message)
                 if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
                     Swal.fire({
                         icon: 'error',
@@ -133,7 +132,7 @@ const Register = () => {
             name, image, email, password, address:'', phone:'', car_license:'', car_engine:'', userCreatedAt: new Date()
         }
         
-        fetch('https://raufuautomotive.herokuapp.com/register',{
+        fetch('http://raufuautomotive.herokuapp.com/register',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
