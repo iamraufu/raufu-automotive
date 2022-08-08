@@ -18,12 +18,11 @@ const Bookings = () => {
 
     const [bookings, setBookings] = useState([]);
     useEffect(()=>{
-        fetch('https://raufuautomotive.herokuapp.com/orders')
+        fetch(`http://raufuautomotive.herokuapp.com/orders`)
             .then(res => res.json())
             .then(data => {
                 setBookings(data.orders);
-            }
-            )
+            })
     },[])
 
     return (
@@ -35,7 +34,7 @@ const Bookings = () => {
                     {
                         bookings?.length > 0 ?
                             <div className="table-responsive pb-5">
-                                <table style={{ border: '1px solid lightgrey' }} className="table table-primary table-striped table-hover">
+                                <table style={{ border: '1px solid lightgrey' }} className="table table-info table-striped table-hover">
                                     <thead style={{ backgroundColor: '#E9EEF4' }}>
                                         <tr className='text-center'>
                                             <th>Id</th>
