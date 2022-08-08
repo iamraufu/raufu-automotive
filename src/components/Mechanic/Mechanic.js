@@ -5,20 +5,42 @@ import { useParams, useNavigate } from 'react-router-dom';
 // import { addToBookings } from '../../utilities/bookingUtilities';
 // import logo from '../../images/logo.svg';
 import Skeleton from '../Skeleton/Skeleton';
+import useAuth from '../../hooks/useAuth';
 
 const Mechanic = () => {
 
     const { id } = useParams();
+    const { user } = useAuth();
     // eslint-disable-next-line
     const navigate = useNavigate();
 
     const [mechanic, setMechanic] = useState({});
+    const [allBookings, setAllBookings] = useState([]);
+    const [bookings, setBookings] = useState([]);
+    
+    // convert date to readable format
+    const date = `${formatTime(new Date().getFullYear())}-${formatTime(new Date().getMonth() + 1)}-${formatTime(new Date().getDate())}`;
+
+    function formatTime(time) {
+        return time < 10 ? (`0${time}`) : time;
+    }
 
     useEffect(() => {
-        fetch(`https://raufuautomotive.herokuapp.com/mechanic/${id}`)
+        fetch(`http://raufuautomotive.herokuapp.com/mechanic/${id}`)
             .then(res => res.json())
             .then(data => setMechanic(data))
-    },[id])
+    }, [id])
+
+    useEffect(() => {
+        fetch(`http://raufuautomotive.herokuapp.com/orders/${mechanic._id}`)
+            .then(res => res.json())
+            .then(data => setAllBookings(data.orders))
+    }, [mechanic._id])
+
+    useEffect(() => {
+        const bookings = allBookings.filter(booking => booking.data.date === date);
+        setBookings(bookings);
+    }, [allBookings,date])
 
     const handleBooking = (mechanic) => {
         navigate('/clientInfo', { state: { mechanic } });
@@ -48,15 +70,95 @@ const Mechanic = () => {
                             </div>
                         </div>
                     </div> :
-                        // <div style={{ position: 'absolute', height: '100px', width: '100px', top: '50%', left: '50%', marginLeft: '-50px', marginTop: '-50px' }}>
-                        //         <img src={logo} id='breathing' width={100} height={100} className='img-fluid' alt="logo of Raufu Automotive" />
-                        //         <p className='text-center'>Loading...</p>
-                        // </div>
                         <div className="row mechanics-container">
                             <div className='cart-deck col-lg-3 col-md-5 col-sm-8 mb-5 mx-1'>
                                 <Skeleton />
                             </div>
                         </div>
+                }
+
+                {
+                    user.email === 'eftykharrahman@gmail.com' &&
+                    <div className="py-5">
+                        <h2 className='fs-5 text-primary'>{date} Total Bookings Today: {bookings.length}</h2>
+
+                        {
+                            bookings?.length > 0 &&
+                            <div className="table-responsive">
+                                <table style={{ border: '1px solid lightgrey' }} className="table table-success table-striped table-hover">
+                                    <thead style={{ backgroundColor: '#E9EEF4' }}>
+                                        <tr className='text-center'>
+                                            <th>No.</th>
+                                            <th>Id</th>
+                                            <th>Client Name</th>
+                                            <th>Date</th>
+                                            <th>Mechanic Name</th>
+                                            <th>Car Engine</th>
+                                            <th>Car License</th>
+                                            <th>Client Phone</th>
+                                            <th>Client Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            bookings.map((booking, index) => (
+                                                <tr key={index + 1} className='text-center'>
+                                                    <td>{index + 1}</td>
+                                                    <td>{booking?._id}</td>
+                                                    <td>{booking?.data?.name}</td>
+                                                    <td>{booking?.data?.date}</td>
+                                                    <td>{booking?.mechanicName}</td>
+                                                    <td>{booking?.data?.car_engine}</td>
+                                                    <td>{booking?.data?.car_license}</td>
+                                                    <td>{booking?.data?.phone}</td>
+                                                    <td>{booking?.data?.address}</td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+
+                        <h2 className='fs-5 pt-5'>Total Bookings {allBookings.length}</h2>
+                        {
+                            allBookings?.length > 0 &&
+                            <div className="table-responsive">
+                                <table style={{ border: '1px solid lightgrey' }} className="table table-primary table-striped table-hover">
+                                    <thead style={{ backgroundColor: '#E9EEF4' }}>
+                                        <tr className='text-center'>
+                                            <th>No.</th>
+                                            <th>Id</th>
+                                            <th>Client Name</th>
+                                            <th>Date</th>
+                                            <th>Mechanic Name</th>
+                                            <th>Car Engine</th>
+                                            <th>Car License</th>
+                                            <th>Client Phone</th>
+                                            <th>Client Address</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            allBookings.map((booking, index) => (
+                                                <tr key={index + 1} className='text-center'>
+                                                    <td>{index + 1}</td>
+                                                    <td>{booking?._id}</td>
+                                                    <td>{booking?.data?.name}</td>
+                                                    <td>{booking?.data?.date}</td>
+                                                    <td>{booking?.mechanicName}</td>
+                                                    <td>{booking?.data?.car_engine}</td>
+                                                    <td>{booking?.data?.car_license}</td>
+                                                    <td>{booking?.data?.phone}</td>
+                                                    <td>{booking?.data?.address}</td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
                 }
             </div>
         </div>
