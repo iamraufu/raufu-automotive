@@ -24,7 +24,7 @@ const ClientInfo = () => {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
-        fetch(`https://raufuautomotive.herokuapp.com/user/${user.email}`)
+        fetch(`http://raufuautomotive.herokuapp.com/user/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 setUserInfo(data.user);
@@ -34,13 +34,14 @@ const ClientInfo = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => { 
         // const { name, phone, address, car_engine, car_license } = data;
+        localStorage.setItem('phone',data.phone)
         userInfoUpdate(data);
         bookAppointment(data); 
     }
 
     // update userIno 
     const userInfoUpdate =(data) =>{
-        fetch(`https://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
+        fetch(`http://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -57,8 +58,7 @@ const ClientInfo = () => {
             mechanicId: mechanicId,
             mechanicName: mechanicName
         };
-        console.log(data)
-        fetch('https://raufuautomotive.herokuapp.com/order', {
+        fetch('http://raufuautomotive.herokuapp.com/order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -122,7 +122,9 @@ const ClientInfo = () => {
 
                             <div className="form-group mt-2">
                                 <label htmlFor="date" className='p-1'>Appointment Date</label>
-                                <input type="date" defaultValue={userInfo?.date} className="form-control p-2"
+                                <input type="date" 
+                                // defaultValue={userInfo?.date} 
+                                className="form-control p-2"
                                     {...register("date", { required: true })} />
                                 {errors.date && <span className='text-danger'>This Field is required</span>}
                             </div>
