@@ -39,7 +39,7 @@ const Mechanics = () => {
         <div className='bg-brand bg-brand-container'>
             <Navbar />
             <div className="container">
-                <h1 className="text-center mt-5 mb-3 fs-4">Service Boys</h1>
+                <h1 className="text-center mt-5 mb-3 fs-4">Mechanics</h1>
                 <div data-aos="fade-up" className="row mechanics-container justify-content-center align-items-center">
                     {
                         mechanics?.length ? 
