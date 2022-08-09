@@ -132,7 +132,7 @@ const Register = () => {
             name, image, email, password, address:'', phone:'', car_license:'', car_engine:'', userCreatedAt: new Date()
         }
         
-        fetch('http://raufuautomotive.herokuapp.com/register',{
+        fetch('https://raufuautomotive.herokuapp.com/register',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

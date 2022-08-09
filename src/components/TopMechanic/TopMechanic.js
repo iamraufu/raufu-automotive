@@ -13,7 +13,7 @@ const TopMechanic = () => {
     const [topMechanics, setTopMechanics] = useState([]);
 
     useEffect(()=>{
-        fetch('http://raufuautomotive.herokuapp.com/mechanics')
+        fetch('https://raufuautomotive.herokuapp.com/mechanics')
         .then(res => res.json())
         .then(data => setMechanics(data))
     },[])

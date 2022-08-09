@@ -14,7 +14,7 @@ const Dashboard = () => {
     const [mechanics, setMechanics] = useState([]);
     // get mechanics from database
     useEffect(() => {
-        fetch('http://raufuautomotive.herokuapp.com/mechanics')
+        fetch('https://raufuautomotive.herokuapp.com/mechanics')
             .then(res => res.json())
             .then(data => {
                 setMechanics(data)
@@ -27,7 +27,7 @@ const Dashboard = () => {
     // get users from database
     const [users, setUsers] = useState([]);
     useEffect(() => {
-        fetch('http://raufuautomotive.herokuapp.com/users')
+        fetch('https://raufuautomotive.herokuapp.com/users')
             .then(res => res.json())
             .then(data => {
                 setUsers(data.users)
@@ -39,7 +39,7 @@ const Dashboard = () => {
     // get bookings from database
     const [bookings, setBookings] = useState([]);
     useEffect(() => {
-        fetch('http://raufuautomotive.herokuapp.com/orders')
+        fetch('https://raufuautomotive.herokuapp.com/orders')
             .then(res => res.json())
             .then(data => {
                 setBookings(data.orders);
@@ -57,7 +57,7 @@ const Dashboard = () => {
     // add mechanic to database
     const addMechanic = (data) => {
         const mechanicDetails = data;
-        fetch('http://raufuautomotive.herokuapp.com/mechanic', {
+        fetch('https://raufuautomotive.herokuapp.com/mechanic', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ const Dashboard = () => {
 
     // remove mechanic from database
     const removeMechanic = (id) => {
-        fetch(`http://raufuautomotive.herokuapp.com/mechanic/${id}`, {
+        fetch(`https://raufuautomotive.herokuapp.com/mechanic/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -94,7 +94,7 @@ const Dashboard = () => {
 
     // remove Appointment from database
     const removeAppointment = (id) => {
-        fetch(`http://raufuautomotive.herokuapp.com/order/${id}`, {
+        fetch(`https://raufuautomotive.herokuapp.com/order/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -109,7 +109,7 @@ const Dashboard = () => {
 
     // remove user from database
     const removeUser = (id) => {
-        fetch(`http://raufuautomotive.herokuapp.com/user/${id}`, {
+        fetch(`https://raufuautomotive.herokuapp.com/user/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -140,7 +140,7 @@ const Dashboard = () => {
     // update order to database
     const updateOrder = (bookingData) => {
         const orderDetails = bookingData;
-        fetch(`http://raufuautomotive.herokuapp.com/order/${user._id}`, {
+        fetch(`https://raufuautomotive.herokuapp.com/order/${user._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

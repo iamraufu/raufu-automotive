@@ -24,7 +24,7 @@ const ClientInfo = () => {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
-        fetch(`http://raufuautomotive.herokuapp.com/user/${user.email}`)
+        fetch(`https://raufuautomotive.herokuapp.com/user/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 setUserInfo(data.user);
@@ -41,7 +41,7 @@ const ClientInfo = () => {
 
     // update userIno 
     const userInfoUpdate =(data) =>{
-        fetch(`http://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
+        fetch(`https://raufuautomotive.herokuapp.com/user/${userInfo._id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ const ClientInfo = () => {
             mechanicId: mechanicId,
             mechanicName: mechanicName
         };
-        fetch('http://raufuautomotive.herokuapp.com/order', {
+        fetch('https://raufuautomotive.herokuapp.com/order', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
